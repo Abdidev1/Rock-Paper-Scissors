@@ -52,101 +52,144 @@ document.addEventListener("DOMContentLoaded", function(){
 
         if (isNaN(parsedValue) === false && parsedValue > 0) {
             maximumTargetPoints = parsedValue;
-            currentModeDisplayElement.textContent = "First to" + maximumTargetPoints + " wins!";
+            currentModeDisplayElement.textContent = "First to " + maximumTargetPoints + " wins!";
             console.log("Target score successfully set to: " + maximumTargetPoints);
 
             resetInternalScoresAndUI();
-    } else {
+        } else {
 
-        maximumTargetPoints = null;
-        currentModeDisplayElement.textContent = "or Play Infinitely!";
-        console.log("Taget score cleared. Mode set to infinite.");
+            maximumTargetPoints = null;
+            currentModeDisplayElement.textContent = "or Play Infinitely!";
+            console.log("Taget score cleared. Mode set to infinite.");
+        }
     }
 }
-     @param {string} playerWeaponChoice
+    function beginBattleSequence(playerWeaponChoice) {
 
-function begin beginBattleSequence(playerWeaponChoice) {
+        isTheGameLockedOut = true;
 
-    isTheGameLockedOut = true;
+        let possibleWeaponsArray = ['rock', 'paper', 'scissors'];
+        let randomDecimal = Math.random();
+        let randomIndex = Math.floor(randomDecimal * possibleWeaponsArray.length);
+        let robotWeaponChoice = possibleWeaponsArray[randomIndex];
 
-    let possibleWeaponsArray = ['rock', 'paper', 'scissors'];
-    let randomDecimal = Math.random();
-    let randomIndex = Math.floor(randomDecimal * possibleWeaponsArray.length);
-    let robotWeaponChoice = possibleWeaponsArray[randomIndex];
+        console.log("Robot has chosen: " + robotWeaponChoice);
 
-    console.log("Robot has chosen: " + robotWeaponChoice);
-
-    triggerShakingAnimation();
-    
-    setTimeout(function() {
-
-        stopShakingAnimation();
-
-        playerAnimatedHandElement.textContent = visualWeaponDictionary[playerWeaponChoice];
-        robotAnimatedHandElement.textContent = visualWeaponDictionary[robotWeaponChoice];
-
+        triggerShakingAnimation();
+        
         setTimeout(function() {
-            
-            animationBattleStageElement.classList.add('hidden-element');
-            statusAnnouncementElement.classList.add('hidden-element');
 
-            calculatedRoundWinner(playerWeaponChoice, robotWeaponChoice);
-        }, 1200);
+            stopShakingAnimation();
 
-    }, 800);
-}
- 
-function calculatedRoundWinner(playerString, robotString) {
+            playerAnimatedHandElement.textContent = visualWeaponDictionary[playerWeaponChoice];
+            robotAnimatedHandElement.textContent = visualWeaponDictionary[robotWeaponChoice];
 
-    if (playerString === robotString) {
-        statusAnnouncementElement.textContent = "Tie Round! Both Choosed " + playerString.toupperCase() + ".";
+            setTimeout(function() {
+                
+                animationBattleStageElement.classList.add('hidden-element');
+                statusAnnouncementElement.classList.remove('hidden-element');
+
+                calculatedRoundWinner(playerWeaponChoice, robotWeaponChoice);
+            }, 1200);
+
+        }, 800);
+    }
+
+    function calculatedRoundWinner(playerString, robotString) {
+
+        if (playerString === robotString) {
+            statusAnnouncementElement.textContent = "Tie Round! Both Choosed " + playerString.toUpperCase() + ".";
+            isTheGameLockedOut = false;
+            console.log("Result: TIE");
+            return;
+        }
+
+        const rulesOfVictory = {
+            "rock": "scissors",
+            "paper": "rock",
+            "scissors": "paper"
+        };
+
+        if (rulesOfVictory[playerString] === robotString) {
+            currentScorePlayer = currentScorePlayer + 1;
+            numericScoreDisplayPlayer.textContent = currentScorePlayer;
+            statusAnnouncementElement.textContent = "You Win! " + playerString.toUpperCase() + " beats " + robotString.toUpperCase() + ".";
+            console.log("Result: Player Wins Round");
+        }
+
+        else {
+            currentScoreRobot = currentScoreRobot + 1;
+            numericScoreDisplayRobot.textContent = currentScoreRobot;
+            statusAnnouncementElement.textContent = "Robot Win! " + robotString.toUpperCase() + " beats " + playerString.toUpperCase() + ".";
+            console.log("Result: Robot Wins Round");
+        }
+
+        checkIfMatchIsOver();
+    }
+
+    function checkIfMatchIsOver() {
+        if (maximumTargetPoints === null) {
+            isTheGameLockedOut = false;
+            return;
+        }
+
+        if (currentScorePlayer === maximumTargetPoints) {
+            isTheGameLockedOut = true;
+            statusAnnouncementElement.textContent = "VICTORY! You won the match!";
+            console.log("Match over: player reached target.");
+        }
+        
+        else if (currentScoreRobot === maximumTargetPoints) {
+            isTheGameLockedOut = true;
+            statusAnnouncementElement.textContent = "Defeat! robot wins the match.";
+            console.log("Match Over: Robot reached target.");
+        }
+
+        else {
+            isTheGameLockedOut = false;
+        }
+    }
+
+    function triggerShakingAnimation() {
+
+        statusAnnouncementElement.classList.add('hidden-element');
+
+        animationBattleStageElement.classList.remove('hidden-element');
+
+        playerAnimatedHandElement.textContent = "✊🏼";
+        robotAnimatedHandElement.textContent = "✊🏼";
+
+        playerAnimatedHandElement.classList.add('animate-shaking');
+        robotAnimatedHandElement.classList.add('animate-shaking');
+    }
+
+    function stopShakingAnimation() {
+
+        playerAnimatedHandElement.classList.remove('animate-shaking');
+        robotAnimatedHandElement.classList.remove('animate-shaking');
+    }
+
+    function resetInternalScoresAndUI() {
+        console.log("Resetting internal engine state...");
+
+        currentScorePlayer = 0;
+        currentScoreRobot = 0;
         isTheGameLockedOut = false;
-        console.log("Result: TIE");
-        return;
+
+        numericScoreDisplayPlayer.textContent = "0";
+        numericScoreDisplayRobot.textContent = "0";
+
+        statusAnnouncementElement.textContent = "Select among rock,paper and scissors";
+        animationBattleStageElement.classList.add('hidden-element');
+        statusAnnouncementElement.classList.remove('hidden-element');
     }
 
-    const rulesOfVictory = {
-        "rock": "scissors",
-        "paper": "rock",
-        "scissors": "paper"
-    };
+    function handleCompleteGameReset() {
+        console.log("Reset triggered by user.");
+        targetScoreInputElement.value = "";
+        maximumTargetPoints = null;
+        currentModeDisplayElement.textContent = "or play infinitely";
 
-    if (rulesOfVictory[playerString] === robotString) {
-        currentScorePlayer = currentScorePlayer + 1;
-        numericScoreDisplayPlayer.textContent = currentScorePlayer;
-        statusAnnouncementElement.textContent = "You Win!" + playerString.toupperCase() + " beats " + robotString.toupperCase() + ".";
-        console.log("Result: Player Wins Round");
+        resetInternalScoresAndUI();
     }
-
-    else {
-        currentScoreRobot = currentScoreRobot + 1;
-        numericScoreDisplayRobot.textContent = currentScoreRobot;
-        statusAnnouncementElement.textContent = "Robot Win!" + robotString.toupperCase() + " beats " + playerString.toupperCase() + ".";
-        console.log("Result: Robot Wins Round");
-    }
-
-    checkIfMatchIsOver();
-}
-
-function checkIfMatchIsOver() {
-    if (maximumTargetPoints === null) {
-        isTheGameLockedOut = false;
-        return;
-    }
-
-    if (currentScorePlayer ==- maximumTargetPoints) {
-        isTheGameLockedOut = true;
-        statusAnnouncementElement.textContent = "VICTORY! You won the match!";
-        console.log("Match over: player reached target.");
-    }
-    
-    else if (currentScoreRobot === maximumTargetPoints) {
-        isTheGameLockedOut = true;
-        statusAnnouncementElement.textContent = "Defeat! robot wins the match.";
-        console.log("Match Over: Robot reached target.");
-    }
-
-    else {
-        isTheGameLockedOut = false;
-    }
-}
+});
