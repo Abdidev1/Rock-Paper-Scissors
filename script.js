@@ -6,4 +6,10 @@ document.addEventListener("DOMContentLoaded", function(){
     let currentScoreRobot = 0;
     let maximumTargetPoints = null;
     let isTheGameLockedOut = false;
+
+    const visualWeaponDictionary = {
+        "rock": "✊🏼",
+        "paper": "🖐🏼",
+        "scissors": "✌🏼"
+    };
 })
