@@ -130,10 +130,9 @@ document.addEventListener("DOMContentLoaded", function(){
     function checkIfMatchIsOver() {
         if (maximumTargetPoints === null) {
             isTheGameLockedOut = false;
-            return;
         }
 
-        if (currentScorePlayer === maximumTargetPoints) {
+        else if (currentScorePlayer === maximumTargetPoints) {
             isTheGameLockedOut = true;
             statusAnnouncementElement.textContent = "VICTORY! You won the match!";
             console.log("Match over: player reached target.");
@@ -179,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function(){
         numericScoreDisplayPlayer.textContent = "0";
         numericScoreDisplayRobot.textContent = "0";
 
-        statusAnnouncementElement.textContent = "Select among rock,paper and scissors";
+        statusAnnouncementElement.textContent = "Select Between Rock, Paper & Scissors";
         animationBattleStageElement.classList.add('hidden-element');
         statusAnnouncementElement.classList.remove('hidden-element');
     }
@@ -188,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log("Reset triggered by user.");
         targetScoreInputElement.value = "";
         maximumTargetPoints = null;
-        currentModeDisplayElement.textContent = "or play infinitely";
+        currentModeDisplayElement.textContent = "or Play Infinitely!";
 
         resetInternalScoresAndUI();
     }

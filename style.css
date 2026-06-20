@@ -81,7 +81,7 @@ body {
     box-shadow: none;
 }
 
-.games-rules-configuration {
+.game-rules-configuration {
     display: flex;
     align-items: center;
     gap: 15px;
