@@ -27,4 +27,22 @@ document.addEventListener("DOMContentLoaded", function(){
     const animationBattleStageElement = document.getElementById('animationBattleStage');
     const playerAnimatedHandElement = document.getElementById('playerAnimatedHand');
     const robotAnimatedHandElement = document.getElementById('robotAnimatedHand');
+
+    enterScoreLimitButton.addEventListener('click', handleScoreTargetSubmission);
+
+    masterResetButton.addEventListener('click', handleCompleteGameReset);
+
+    allWeaponButtons.forEach(function(singleButton) {
+        singleButton.addEventListener('click', function() {
+            if (isTheGameLockedOut === true) {
+                console.log("Click Ignored. Game is currently locked.");
+                return;
+            }
+
+            let chosenWeaponStr = singleButton.getAttribute('data-weapon-type');
+            console.log("Player clicked the weapon: " + chosenWeaponStr);
+
+            beginBattleSequence(chosenWeaponStr);
+        });
+    });
 })
