@@ -1,0 +1,14 @@
+:root {
+
+    --pure-yellow: #FFF200;
+    --pure-blue: #0033FF;
+    --pure-light-green: #66FF66;
+
+    --dark-ink: #111111;
+    --pure-white: #FFFFFF;
+
+    --background-color: var(--pure-yellow);
+    --header-color: var(--pure-blue);
+    --board-color: var(--pure-light-green);
+    --darker-green-accent: #22CC22;
+}
