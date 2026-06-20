@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function(){
             console.log("Taget score cleared. Mode set to infinite.");
         }
     }
-}
+
     function beginBattleSequence(playerWeaponChoice) {
 
         isTheGameLockedOut = true;
