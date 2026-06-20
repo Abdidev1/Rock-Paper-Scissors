@@ -80,3 +80,43 @@ body {
     transform: translateY(4px);
     box-shadow: none;
 }
+
+.games-rules-configuration {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 24px;
+    color: var(--dark-ink);
+    border-color: rgba(255, 255, 255, 0.7);
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px dashed var(--dark-ink);
+}
+
+.input-grouping {
+    display: flex;
+    gap: 8px;
+}
+
+#targetScoreInput {
+    padding: 8px;
+    font-size: 20px;
+    border: 3px solid var(--dark-ink);
+    border-radius: 6px;
+    width: 160px;
+    text-align: center;
+}
+
+.submit-score-btn {
+    background-color: var(--header-color);
+    color: var(--pure-white);
+    border: 3px solid var(--dark-ink);
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.submit-score-btn:hover {
+    background-color: #0022AA;
+}
