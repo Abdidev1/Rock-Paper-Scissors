@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Sancreek&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="master-game-controller">
+
+        <header class="primary-app-header">
+            <h1 class="main-logo-title">Rock Paper Scissors</h1>
+            <button id="masterResetButton" class="header-reset-btn">Reset Match</button>
+        </header>
+
+        <section class="game-rules-configuration">
+            <span class="curly-text-style label-text">Game Of Points:</span>
+
+            <div class="input-grouping">
+                <input type="number" id="targetScoreInput" class="curly-text-style" placeholder="Enter target score" min="1">
+                <button id="confirmScoreButton" class="submit-score-btn curly-text-style">Enter</button>
+            </div>
+
+            <span id="currentModeDisplay" class="curly-text-style mode-tracker">or Play Infinitely!</span>
+        </section>
+
+        <main class="interactive-weapon-board">
+
+            <button class="player-weapon-button" data-weapon-type="rock">
+                <div class="circular-icon-background">
+                    <span class="emoji-graphic">✊🏼</span>
+                </div>
+            </button>
+
+            <button class="player-weapon-button" data-weapon-type="paper">
+                <div class="circular-icon-background">
+                    <span class="emoji-graphic">🖐🏼</span>
+                </div>
+            </button>
+
+            <button class="player-weapon-button" data-weapon-type="scissors">
+                <div class="circular-icon-background">
+                    <span class="emoji-graphic">✌🏼</span>
+                </div>
+            </button>
+        
+            </main>
+
+            <section class="live-feedback-area">
+
+                <div id="roundOutcomeMessage" class="status-annoucement-bubble curly text">
+                    Select Between Rock, Paper & Scissors
+                </div>
+
+                <div id="animationBattleStage" class="battle-stage-container hidden-element">
+                    <div id="playerAnimatedHand" class="animated-hand-graphic">✊🏼</div>
+                    <div class="versus-badge">VS</div>
+                    <div id="robotAnimatedHand" class="animated-hand-graphic flipped-horizontally">✊🏼</div>
+                </div>
+
+            </section>
+
+            <footer class="scoreboard-footer-section">
+                <div class="scoreboard-card-wrapper">
+
+                    <div class="scoreboard-header-labels">
+                        <span class="player-label">You</span>
+                        <span class="robot-label">Robot</span>
+                    </div>
+
+                    <div class="scoreboard-numeric-displays">
+                        <div id="playerScoreCounter" class="digital-number-box">0</div>
+                        <div id="robotScoreCounter" class="digital-number-box">0</div>
+                    </div>
+
+                </div>
+            </footer>
+
+        </div>
+
+        <script src="script.js"></script>
+</body>
+</html>
